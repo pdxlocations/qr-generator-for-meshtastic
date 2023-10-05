@@ -5,19 +5,37 @@ import os
 
 interface = meshtastic.serial_interface.SerialInterface()
 ourNode = interface.getNode('^local')
-regions = ['US','EU_433','EU_868','CN','JP','ANZ','KR','TW','RU','IN','NZ_865','TH','LORA_24','UA_433','UA_868']
-#regions = ['US','UNSET']
+
+setChannel = True  # Sets lora channel to the default for LongFast
+
+regions_ch = {'US':20,
+              'EU_433':4,
+              'EU_868':1,
+              'CN':36,
+              'JP':20,
+              'ANZ':20,
+              'KR':12,
+              'TW':16,
+              'RU':2,
+              'IN':4,
+              'NZ_865':4,
+              'TH':16,
+              'LORA_24':6,
+              'UA_433':6,
+              'UA_868':2}
 
 path = 'qrs' # Folder Name
-prefix = 'all-channels-' # File prefix
+prefix = 'private-primary-' # File prefix
 
 try: # create a directory, if one doesn't exist
     os.mkdir(path)
 except OSError as error:
     print(error)
 
-for region in regions:
+for region, channel in regions_ch.items():
     ourNode.localConfig.lora.region = region
+    if setChannel:
+        ourNode.localConfig.lora.channel_num = channel
     url = interface.localNode.getURL(includeAll=True)
     qr = pyqrcode.create(url)
     qr.png('qrs/'+prefix+region+'.png', scale=8)
