@@ -22,7 +22,9 @@ regions_ch = {'US':20,
               'TH':16,
               'LORA_24':6,
               'UA_433':6,
-              'UA_868':2}
+              'UA_868':2,
+              'MY_433':4,
+              'MY_919':16}
 
 path = 'qrs' # Folder Name
 prefix = 'private-primary-' # File prefix
