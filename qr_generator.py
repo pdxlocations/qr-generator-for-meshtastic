@@ -1,4 +1,3 @@
-import meshtastic
 import meshtastic.serial_interface
 import pyqrcode
 import os
